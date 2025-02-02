@@ -1,7 +1,19 @@
 import requests
 import streamlit as st
+import os
+import gdown
 import pickle
 import pandas as pd
+
+url='https://drive.google.com/file/d/1dVwgCFM7CIEr9j-1a7d-9YunhyBOIK-E/view?usp=sharing'
+# Google Drive File ID for similarity.pkl
+similarity_file_id = '1dVwgCFM7CIEr9j-1a7d-9YunhyBOIK-E'
+similarity_url = f"https://drive.google.com/uc?id={similarity_file_id}"
+
+# Check if the similarity.pkl file exists, otherwise download it
+if not os.path.exists('similarity.pkl'):
+    st.write("Downloading similarity.pkl from Google Drive...")
+    gdown.download(similarity_url, 'similarity.pkl', quiet=False)
 
 def fetch_poster(movie_id):
     response=requests.get('https://api.themoviedb.org/3/movie/{}?api_key=8cd2eb61a424ef58a1166e40db448133'.format(movie_id))
